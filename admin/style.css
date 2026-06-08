@@ -1,0 +1,237 @@
+/*
+  القواعد الأساسية للعناصر
+  - إعادة تعيين المسافات الافتراضية للمستعرض
+  - اعتماد حجم إطار احتوائي موحد
+  - تحديد خط عام للموقع
+*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/*
+  تنسيق الصفحة الرئيسية:
+  - خلفية متدرجة ناعمة
+  - نص داكن لسهولة القراءة
+  - تأكد من أن الجسم يغطي كامل ارتفاع الشاشة
+*/
+body {
+    background: linear-gradient(150deg, #eef2f7 0%, #d8e2ec 100%);
+    color: #1f2937;
+    min-height: 100vh;
+}
+
+/*
+  تنسيق حاوية الشريط الجانبي والمحتوى الرئيسي
+  - استخدام Flex لتوزيع المساحة بين الشريط الجانبي والمحتوى
+  - حد أقصى للعرض لعرض جيد على الشاشات الكبيرة
+*/
+.sidebar_container {
+    display: flex;
+    gap: 20px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/*
+  تنسيق الشريط الجانبي
+  - لون داكن يعطي تباينًا مع محتوى الصفحة
+  - زاوية دائرية وظل خفيف لمظهر عصري
+  - تثبيت الشريط عند التمرير باستخدام position: sticky
+*/
+.sidebar_container .sidebar {
+    background: #1f2937;
+    color: #f8fafc;
+    border-radius: 24px;
+    padding: 28px 20px;
+    width: 240px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+    position: sticky;
+    top: 24px;
+}
+
+/* عنوان الشريط الجانبي */
+.sidebar_container .sidebar h1 {
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+}
+
+/* قائمة الروابط داخل الشريط الجانبي */
+.sidebar_container .sidebar ul {
+    display: grid;
+    gap: 10px;
+}
+
+.sidebar_container .sidebar ul li {
+    list-style: none;
+}
+
+.sidebar_container .sidebar ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.04);
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* تأثير التمرير على روابط الشريط الجانبي */
+.sidebar_container .sidebar ul li a:hover,
+.sidebar_container .sidebar ul li.active a {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+/* أيقونات القائمة */
+.sidebar_container .sidebar ul li i {
+    font-size: 1.1rem;
+}
+
+/* تنسيق محتوى القسم الرئيسي */
+.sidebar_container .content_sec {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+/* تنسيق عنوان الحقول في النموذج */
+.sidebar_container .content_sec label {
+    font-size: 1.05rem;
+    color: #334155;
+    margin-bottom: 10px;
+    display: block;
+    text-align: right;
+}
+
+/* تنسيق عناصر الإدخال العامة */
+.sidebar_container .content_sec input,
+.sidebar_container .content_sec select,
+.sidebar_container .content_sec textarea {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: #111827;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    background: #f8fafc;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* تأثير التركيز على حقول الإدخال */
+.sidebar_container .content_sec input:focus,
+.sidebar_container .content_sec select:focus,
+.sidebar_container .content_sec textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+/* زر الإضافة الرئيسي */
+.sidebar_container .content_sec .add {
+    display: inline-block;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 14px 26px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 14px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* تأثير التمرير على زر الإضافة */
+.sidebar_container .content_sec .add:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+/* تنسيق جدول العرض */
+.sidebar_container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 28px;
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+
+/* خلايا الجدول */
+.sidebar_container table th,
+.sidebar_container table td {
+    padding: 16px 18px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* رأس الجدول */
+.sidebar_container table th {
+    background: #f8fafc;
+    color: #0f172a;
+    font-weight: 600;
+}
+
+/* تأثير التمرير على صفوف الجدول */
+.sidebar_container table tbody tr:hover {
+    background: #eff6ff;
+}
+
+/* إزالة الحد السفلي من الصف الأخير */
+.sidebar_container table tr:last-child td {
+    border-bottom: none;
+}
+
+/*
+  استجابة الشاشة المتوسطة:
+  - نغير الترتيب إلى عمودي
+  - نوسع الشريط الجانبي حتى 100%
+*/
+@media (max-width: 980px) {
+    .sidebar_container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .sidebar_container .sidebar {
+        width: 100%;
+        position: relative;
+        top: 0;
+    }
+}
+
+/*
+  استجابة الشاشات الصغيرة:
+  - تقليص حجم العناوين والأزرار
+  - تقليل هوامش الحقول لتناسب العرض الضيق
+*/
+@media (max-width: 680px) {
+    .sidebar_container .sidebar h1 {
+        font-size: 1.4rem;
+    }
+
+    .sidebar_container .sidebar ul li a {
+        font-size: 0.95rem;
+        padding: 12px 14px;
+    }
+
+    .sidebar_container .content_sec {
+        padding: 24px;
+    }
+
+    .sidebar_container .content_sec input,
+    .sidebar_container .content_sec select,
+    .sidebar_container .content_sec textarea {
+        padding: 12px 14px;
+    }
+}
