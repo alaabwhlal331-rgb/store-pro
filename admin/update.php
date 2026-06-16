@@ -33,7 +33,7 @@ if(isset($_POST['update_pro'])){
         }
         else{
         @$Proimg = rand(0, 5000) . '_' . $imageName;
-        move_uploaded_file($imageTmp, '../upload/img/' . $Proimg);
+        move_uploaded_file($imageTmp, '../uplaod/img/' . $Proimg);
         $query = "UPDATE product SET Proname='$Proname',Proprice='$Proprice',Prosize='$Prosize',Prosection='$Prosection',Proimg='$Proimg',Prodescrip='$Prodescrip',Prounv='$Prounv' WHERE id='$id_now'";
         $result = mysqli_query($conn, $query);
         if (isset($result)) {
@@ -45,8 +45,10 @@ if(isset($_POST['update_pro'])){
     
         }
     }
+
 }
 ?>
+<!-- start html  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

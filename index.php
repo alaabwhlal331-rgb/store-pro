@@ -230,7 +230,7 @@ input[type="number"]{
         <div class="product">
             <!-- product image -->
             <div class="product_img">
-                <img src="../upload/img/<?php echo $row['Proimg']; ?>" alt="Medical Shoes">
+                <img src="../uplaod/img/<?php echo $row['Proimg']; ?>" alt="Medical Shoes">
                 <span class='unvailable'><?php echo $row['Prounv']; ?></span>
                 <a href=''></a>
             </div>
