@@ -24,7 +24,7 @@ if ($conn) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> الصفحة الرئيسية </title>
     <!-- ربط ملف التنسيق العام -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../style.css">
     <!-- ربط مكتبة Bootstrap لتنسيق أسرع -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- ربط أيقونات Font Awesome -->
@@ -92,17 +92,15 @@ if ($conn) {
            <ul>
 <li><a href="index.php">Home</a></li>
 
+
 <?php
 $query = "SELECT * FROM Section1";
 $result = mysqli_query($conn, $query);
 while ($row = mysqli_fetch_assoc($result)) {
     echo $row['Sectionname'] . " ";
-
-
 ?>
-<Li><a href=""> <?php echo $row['Sectionname']; ?>
+<Li><a href=''><?php echo $row['Sectionname']; ?></a></Li>
 
-</a></Li>
 <?php
 }
 ?>
@@ -110,3 +108,5 @@ while ($row = mysqli_fetch_assoc($result)) {
      </div>
  </nav>
 <!-- end section -->
+</body>
+</html>

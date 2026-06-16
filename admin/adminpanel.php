@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['secadd'])) {
   } else {
     $SectionnameEscaped = mysqli_real_escape_string($conn, $Sectionname);
     // تحقق من تكرار الاسم
-    $checkSql = "SELECT COUNT(*) AS cnt FROM Section1 WHERE Sectionname = '$SectionnameEscaped'";
+    $checkSql = "SELECT COUNT(*) AS cnt FROM section1 WHERE Sectionname = '$SectionnameEscaped'";
     $checkRes = mysqli_query($conn, $checkSql);
     $exists = false;
     if ($checkRes) {
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['secadd'])) {
     if ($exists) {
       $_SESSION['message'] = "<p style='color: orange; text-align: center;'>القسم موجود بالفعل ولن يتم تكراره.</p>";
     } else {
-      $query = "INSERT INTO Section1 (Sectionname) VALUES ('$SectionnameEscaped')";
+      $query = "INSERT INTO section1 (Sectionname) VALUES ('$SectionnameEscaped')";
       if (mysqli_query($conn, $query)) {
         $_SESSION['message'] = "<p style='color: green; text-align: center;'>تم إضافة القسم بنجاح.</p>";
       } else {
@@ -50,7 +50,7 @@ if (isset($_SESSION['message'])) {
   $message = $_SESSION['message'];
   unset($_SESSION['message']);
 }
-
+ @$id=$_GET['id'];// استخدام $id لتحديد القسم المراد حذفه
 ?>
 
 <!DOCTYPE html>
@@ -65,19 +65,36 @@ if (isset($_SESSION['message'])) {
 </head>
 <body>
   <?php echo $message; ?>
+  <?php
+  
+  #delete section
+  if(isset($id)){
+    $query="DELETE FROM section1 WHERE id='$id'";
+    $delete=mysqli_query($conn,$query);
+    if(isset($delete)){
+     echo "<script>alert('تم حذف القسم بنجاح');</script>";
+    }
+     else{
+      echo "<script>alert('حدث خطاء');</script>";
+     }
+    
+  }
+  ?>
+
   <!-- sidebar start  -->
      <div class="sidebar_container">    
         <div class="sidebar">
             <h1 >لوحة التحكم</h1>
             <ul>
             <li><a href="../index.php" target="_blank">الصفحة الرئيسية <i class="fas fa-home"></i></a></li>
-            <li><a href="addproduct.php" target="_blank"> صفحة المنتجات <i class="fas fa-plus"></i></a></li>
-            <li><a href="viewproducts.php" target="_blank"> اضافة منتج <i class="fas fa-box"></i></a></li>
+            <li><a href="product.php" target="_blank"> صفحة المنتجات <i class="fas fa-plus"></i></a></li>
+            <li><a href="addproduct.php" target="_blank"> اضافة منتج <i class="fas fa-box"></i></a></li>
             <li><a href="users.php" target="_blank">معلومات الاعضاء <i class="fas fa-users"></i></a></li>
             <li><a href="orders.php" target="_blank">الطلبات <i class="fas fa-shopping-cart"></i></a></li>
             <li><a href="logout.php" target="_blank">تسجيل الخروج <i class="fas fa-sign-out-alt"></i></a></li>
             </ul>
         </div>
+
       
       <!-- end of sidebar -->
       
@@ -98,7 +115,7 @@ if (isset($_SESSION['message'])) {
             <th>حذف</th>
           </tr>
           <?php
-           $query = "SELECT * FROM Section1";
+           $query = "SELECT * FROM section1";
            $result = mysqli_query($conn, $query);
            while ($row = mysqli_fetch_assoc($result)) {
             ?>
@@ -106,7 +123,7 @@ if (isset($_SESSION['message'])) {
             <td><?php echo $row['id']; ?></td>
             <td><?php echo $row['Sectionname']; ?></td>
             <td><button class='edit'>تعديل</button></td>
-            <td><button class='delete'>حذف</button></td>
+            <td><a href="adminpanel.php?id=<?php echo $row['id']; ?>"><button class='delete'>حذف</button></td>
           </tr>
           <?php
            }

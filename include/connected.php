@@ -15,3 +15,17 @@ if ($conn) {
     // إذا فشل الاتصال، نطبع سبب الخطأ
     echo "فشل الاتصال: " . mysqli_connect_error();
 }
+
+$DELETE='DELETE FROM section1  WHERE id=1';
+mysqli_query($conn,$DELETE);
+
+
+
+// $insert='insert into section1  values (1,"ahmed")';
+// mysqli_query($conn,$insert);
+
+
+
+
+
+  ?>
