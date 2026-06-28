@@ -1,28 +1,15 @@
 <?php
-session_start();
-if(!isset($_SESSION['user_id'])){
-    echo '<script>alert( " يرجى تسجيل الدخول اولا لاضافة المنتج الى السلة "); 
-    window.location.href="user/login.php";</script>';
-}
-$user_id=$_SESSION['user_id'];
-if($user_id<=0){
-    echo '<script>alert(" مستخدم غير صحيح"); 
-    window.location.href="user/login.php";</script>';
-}
-?>
-<?php
 
 include ('file/header.php');
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>.</title>
+   <link rel="stylesheet" href="style.css">
     <style>
         /* start product */
 .products-section {
@@ -229,81 +216,68 @@ input[type="number"]{
     </style>
 </head>
 <body>
+    
+</body>
+</html>
+<?php
+if(isset($_GET['btn_search'])){
+    $search =$_GET['search'];
+   $query = 'SELECT * FROM product WHERE Prodescrip LIKE "%'.$search.'%" 
+          OR Proname LIKE "%'.$search.'%" 
+          OR Prosection LIKE "%'.$search.'%" 
+          OR Proprice LIKE "%'.$search.'%"';
+    $result=mysqli_query($conn,$query);
+    if (mysqli_num_rows($result)>0){
+        while($row=mysqli_fetch_assoc($result)){
+            echo  '<div class="product">
+<!-- product image -->
+<div class="product_img">
+    <img src="../uplaod/img//'.$row['Proimg'].'" alt="Mmmm">
+    <span class="unvailable">'.$row['Prounv'].'</span>
+    <a href=""></a>
+</div>
+   <!-- section -->
+<div class="product-section">
+<a href="">'.$row['Prosection'].'</a>
+</div>
+<!-- name -->
+<div class="product-name">
+    <a href="">'.$row['Proname'].'</a>
+</div>
+<!-- price -->
+<div class="product-price">
+<a href=""> '.$row['Proprice'].' &nbsp; EGP</a>
+</div>
+<!-- description -->
+<div class="product-description">
+<a href="details.php"><i class="fa-solid fa-circle-info"> '.$row['Prodescrip'].'</i></a>
+</div>
+<!-- quantity -->
+    <div class="qty_input">
+        <button class="qty-count mins"><i class="fa-solid fa-minus"></i></button>
+        <input type="number" id="quantity" class="qty-input" value="1" min="1" max="7">
+        <button class="qty-count add"><i class="fa-solid fa-plus"></i></button>
+    </div>
+<!-- actions -->
+<div class="product-actions">
+    <button class="btn btn-primary">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Add to cart</span>
+    </button>
+    <button class="btn btn-secondary">
+        <i class="fa-solid fa-heart"></i>
+        <span>Wishlist</span>
+    </button>
+</div>
+</div>';
 
-<!--product start --------------------------------------------------------- -->
-<main class="products-section">
-    <?php
-    $query = "SELECT * FROM product";
-    $result = mysqli_query($conn, $query);
-    while ($row = mysqli_fetch_assoc($result)) {
-    ?>
-    <div class="products-grid">
-        <div class="product">
-            <!-- product image -->
-            <div class="product_img"><a href="detalis.php?id=<?php echo $row ['id']?>">
-                <img src="../uplaods/img/<?php echo $row['Proimg']; ?>" alt="Medical Shoes">
-                <span class='unvailable'><?php echo $row['Prounv']; ?></span>
-                <a href=''></a>
-            </div>
-               <!-- section -->
-            <div class="product-section">
-            <a href="section.php?section=<?php echo $row ['Prosection']?>">
-                <?php echo $row['Prosection']; ?></a>
-            </div>
-            <!-- name -->
-            <div class="product-name">
-                <a href="detalis.php?id=<?php echo $row ['id']?>"><?php echo $row['Proname']; ?></a>
-            </div>
-            <!-- price -->
-            <div class="product-price">
-            <a href="detalis.php?id=<?php echo $row ['id']?>"><?php echo $row['Proprice']; ?> EGP</a>
-            </div>
-            <!-- description -->
-            <div class="product-description">
-            <a href="detalis.php?id=<?php echo $row ['id']?>"><i class="fa-solid fa-circle-info"></i></a>
-            </div>
-            <!-- quantity -->
-           
-                <div class="qty_input">
-                    <form action="card.php?action<?php echo $row['id']; ?>" method="post">
-                    <button class="qty-count mins"><i class="fa-solid fa-minus"></i></button>
-                    <input type="number" id="quantity" name="quantity" class="qty-input" value="1" min="1" max="7">
-                    <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
-                    <input type="hidden" name="h_name" value="<?php echo $row['Proname']; ?>">
-                    <input type="hidden" name="h_price" value="<?php echo $row['Proprice']; ?>">
-                    <input type="hidden" name="h_img" value="<?php echo $row['Proimg']; ?>">
-                    <button class="qty-count add"><i class="fa-solid fa-plus"></i></button>
-                </div><!-- end quantity -->
-
-            <!-- actions -->
-            <div class="product-actions">
-                <button class="btn btn-primary" type="submit" name="add" value="add_cart">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Add to cart</span>
-                </button>
-                <button class="btn btn-secondary">
-                    <i class="fa-solid fa-heart"></i>
-                    <span>Wishlist</span>
-                </button></form>
-            </div><!-- end actions -->
-        </div> <!-- end product -->
-    </div><!-- end product -->
-    <?php
+        }//end while
+    }//end if
+    else {
+        echo "no result found";
     }
-    ?>
-
-        <!-- 2 -->
-        
-</main>
-
-<!-- end product -->
-
-<br>
-<br>
+}
+?>  
 <?php
 include('file/footer.php');
 ?>
-
-</body>
-</html>
-

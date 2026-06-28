@@ -14,7 +14,6 @@ if ($conn) {
 } else {
     echo "فشل الاتصال: " . mysqli_connect_error();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -24,11 +23,10 @@ if ($conn) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> الصفحة الرئيسية </title>
     <!-- ربط ملف التنسيق العام -->
-    <link rel="stylesheet" href="../style.css">
-    <!-- ربط مكتبة Bootstrap لتنسيق أسرع -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <!-- ربط أيقونات Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    
 </head>
 <body>
   <header>
@@ -39,13 +37,14 @@ if ($conn) {
     <img src="images/logo.png" alt="Logo">
 </div>
 
+
 <!-- start search -->
 <div class="header-actions">
   <div class="search">
     <div class="search_bar">
       <!-- نموذج البحث -->
-      <form action="" method="get">
-        <input type="text" placeholder="Search..." class="search_input" name="">
+      <form action="search.php" method="get">
+        <input type="text" placeholder="Search..." class="search_input" name="search">
         <button type="submit" class="search_button" name="btn_search">Search</button>
       </form>
     </div>
@@ -54,9 +53,18 @@ if ($conn) {
   <!-- عربة التسوق وأيقونة المستخدم -->
   <div class="cart">
     <ul>
-      <li class="cart-icon"><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
-        <span class="cart-count">0</span></li>
-      <li><a href="signup.php"><i class="fa-solid fa-user"></i></a></li>
+     <?php
+     @$select_icon="SELECT * FROM card WHERE user_id ='$user_id'";
+     $result=mysqli_query($conn,$select_icon);
+     if($result){
+       $row_count=mysqli_num_rows($result);
+     } else {
+       $row_count=0;
+     }
+     ?>
+      <li class="cart-icon"><a href="card.php"><i class="fa-solid fa-cart-shopping"></i></a>
+        <span class="cart-count"><?php echo $row_count; ?></span></li>
+      <li><a href="user/logout.php"><i class="fa-solid fa-user"></i></a></li>
     </ul>
   </div>
   <!-- end cart -->
@@ -69,14 +77,7 @@ if ($conn) {
 
   <!-- main navigation (links + social icons) -->
   <nav class="main-nav">
-    <ul class="nav-links">
-      <!-- روابط التنقل الأساسية -->
-      <li><a href="index.html">Home</a></li>
-      <li><a href="products.html">Products</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact Us</a></li>
-    </ul>
-
+    
     <ul class="social-media">
       <!-- روابط حسابات السوشيال ميديا -->
       <li><a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
@@ -88,19 +89,26 @@ if ($conn) {
  
 
    <!-- start section  -->
-    <div class="section">
+    <div class="nav-links">
            <ul>
-<li><a href="index.php">Home</a></li>
-
-
+<Li><a href="../index.php">Home</a></Li>
 <?php
-$query = "SELECT * FROM Section1";
+$query = "SELECT * FROM section1";
 $result = mysqli_query($conn, $query);
-while ($row = mysqli_fetch_assoc($result)) {
-    echo $row['Sectionname'] . " ";
-?>
-<Li><a href=''><?php echo $row['Sectionname']; ?></a></Li>
 
+if (!$result) {
+    die("خطأ في الاستعلام: " . mysqli_error($conn));
+}
+
+if (mysqli_num_rows($result) == 0) {
+    echo "<li>لا توجد أقسام مضافة</li>";
+}
+
+while ($row = mysqli_fetch_assoc($result)) {
+?>
+<li>
+  <a href='section.php?section=<?php echo $row['Sectionname']; ?>'>
+  <?php echo $row['Sectionname']; ?></a></li>
 <?php
 }
 ?>
@@ -110,3 +118,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 <!-- end section -->
 </body>
 </html>
+
+
+
+
+
+
+

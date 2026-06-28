@@ -27,7 +27,7 @@ if ($proadd) {
         echo "<script>alert('ادخل كل البيانات المطلوبة')</script>";
     } else {
         $Proimg = rand(0, 5000) . '_' . $imageName;
-        $uploadDir = '../upload/img/';
+        $uploadDir = '../uplaods/img/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }

@@ -17,13 +17,13 @@ if(isset($_POST['update_pro'])){
     if (isset($_GET['id'])){
         $id=$_GET['id'];
         $Proname=$_POST['Proname'];
-        $Proimg=$_POST['Proimg'];
+        @$Proimg=$_POST['Proimg'];
         $Proprice=$_POST['Proprice'];
         $Prodescrip=$_POST['Prodescrip'];
         $Prosize=$_POST['Prosize'];
         $Prounv=$_POST['Prounv'];
         $Prosection=$_POST['Prosection'];
-        $Proadd = $_POST['Proadd'];
+        @$Proadd = $_POST['Proadd'];
         $id_now = $_GET['id'];
         // start img
         @$imageName = $_FILES['Proimg']['name'];
@@ -33,7 +33,7 @@ if(isset($_POST['update_pro'])){
         }
         else{
         @$Proimg = rand(0, 5000) . '_' . $imageName;
-        move_uploaded_file($imageTmp, '../uplaod/img/' . $Proimg);
+        move_uploaded_file($imageTmp, '../uplaods/img/' . $Proimg);
         $query = "UPDATE product SET Proname='$Proname',Proprice='$Proprice',Prosize='$Prosize',Prosection='$Prosection',Proimg='$Proimg',Prodescrip='$Prodescrip',Prounv='$Prounv' WHERE id='$id_now'";
         $result = mysqli_query($conn, $query);
         if (isset($result)) {
@@ -196,7 +196,6 @@ main {
 
                 <option value="">ملابس </option>
                 <option value=""> احذية</option>
-                <option value="">هواتف</option>
                 <option value="">اكسسوارات</option>
                 <option value="">حقائب</option>
               </select>

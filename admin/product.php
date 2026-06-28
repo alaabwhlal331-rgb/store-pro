@@ -1,6 +1,6 @@
 <?php 
 include ('../include/connected.php');
-include ('file/header.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +87,7 @@ if (isset($id)) {
             <tr>
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['Proname']; ?></td>
-                <td><img src="../uplaod/img/<?php echo $row['Proimg']; ?>" alt="" style="max-width: 80px; height: auto;"></td>
+                <td><img src="../uplaods/img/<?php echo $row['Proimg']; ?>" alt="" style="max-width: 80px; height: auto;"></td>
                 <td><?php echo $row['Proprice']; ?></td>
                 <td><?php echo $row['Prosize']; ?></td>
                 <td><?php echo $row['Prounv']; ?></td>
